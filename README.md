@@ -35,7 +35,7 @@
 Download the latest installer from [Releases](../../releases):
 
 ```
-[SuperUpdater_0.1.0.exe](../../releases/tag/v0.1.0)
+- [SuperUpdater_0.1.0.exe](../../releases/tag/v0.1.0)
 ```
 
 Run it — no admin rights needed.
