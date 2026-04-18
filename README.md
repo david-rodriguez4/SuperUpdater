@@ -23,7 +23,12 @@
 
 ## Screenshots
 
-> _Coming soon_
+![Captura1](screenshots/Captura1.PNG)
+![Captura2](screenshots/Captura2.PNG)
+![Captura3](screenshots/Captura3.PNG)
+![Captura4](screenshots/Captura4.PNG)
+![Captura5](screenshots/Captura5.PNG)
+![Captura6](screenshots/Captura6.PNG)
 
 ## Requirements
 
