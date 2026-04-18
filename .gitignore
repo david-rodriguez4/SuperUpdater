@@ -1,0 +1,12 @@
+# Rust / Cargo
+src-tauri/target/
+
+# Node
+node_modules/
+
+# Tauri generated
+src-tauri/gen/
+
+# Temp files
+logo_square.png
+*.log
