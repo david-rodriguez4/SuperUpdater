@@ -35,7 +35,7 @@
 Download the latest installer from [Releases](../../releases):
 
 ```
-SuperUpdater_x.x.x_x64-setup.exe
+[SuperUpdater_0.1.0.exe](https://github.com/david-rodriguez4/SuperUpdater/releases/tag/v0.1.0)
 ```
 
 Run it — no admin rights needed.
