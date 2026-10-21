@@ -48,7 +48,7 @@
 
 Download the latest installer from [Releases](../../releases):
 
-[SuperUpdater_0.1.0.exe](../../releases/tag/v0.1.0)
+[SuperUpdater 0.1.1](../../releases/tag/v0.1.1)
 
 Run it — no admin rights needed.
 
@@ -58,8 +58,8 @@ The build produces two artifacts in `dist/`:
 
 | File | What it is |
 |---|---|
-| `SuperUpdater_0.1.0_x64-setup.exe` | NSIS installer. Installs per user (no admin), adds Start-menu and uninstall entries. |
-| `SuperUpdater_0.1.0_portable.exe` | Standalone executable. Copy it anywhere and run it; nothing is installed. |
+| `SuperUpdater_0.1.1_x64-setup.exe` | NSIS installer. Installs per user (no admin), adds Start-menu and uninstall entries. |
+| `SuperUpdater_0.1.1_portable.exe` | Standalone executable. Copy it anywhere and run it; nothing is installed. |
 
 Both need the **Microsoft Edge WebView2 Runtime**, which ships with Windows 11 and
 with Windows 10 1803+ via Edge. The portable build still stores its history and
