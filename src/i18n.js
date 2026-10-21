@@ -1,5 +1,37 @@
 let currentLang = localStorage.getItem('lang') || 'es';
 
+/**
+ * Formatea un número según el idioma activo.
+ *
+ * @param {number|string} n
+ * @returns {string}
+ */
+function formatNumber(n) {
+  try {
+    return new Intl.NumberFormat(currentLang).format(n);
+  } catch {
+    return String(n);
+  }
+}
+
+/**
+ * Elige entre la forma singular y la plural.
+ *
+ * El plural no se puede formar concatenando una letra: en español
+ * "actualización" -> "actualizaciones" (la "ón" se convierte en "ones"),
+ * no "actualización" + "es". Por eso las formas se dan completas.
+ *
+ * En español y en inglés el singular sólo se usa con la cantidad 1.
+ *
+ * @param {number|string} n  cantidad
+ * @param {string} one  forma singular
+ * @param {string} many  forma plural
+ * @returns {string}
+ */
+function plural(n, one, many) {
+  return Number(n) === 1 ? one : many;
+}
+
 const TRANSLATIONS = {
   en: {
     // Sidebar
@@ -12,42 +44,44 @@ const TRANSLATIONS = {
 
     // Updates section
     updates_title: 'Software Inventory',
-    updates_loading: 'Searching for updates...',
+    updates_loading: 'Searching for updates…',
     updates_all_good: 'All software is up to date.',
-    updates_pending: (n) => `<span class="text-primary font-semibold">${n} update${n > 1 ? 's' : ''}</span> pending approval.`,
-    updates_filter: 'Filter...',
+    updates_pending: (n) => `<span class="text-primary font-semibold">${formatNumber(n)} ${plural(n, 'update', 'updates')}</span> pending approval.`,
+    updates_filter: 'Filter…',
     updates_select_all: 'Select all',
     updates_selected_btn: 'Update selected',
-    updates_querying: 'Querying winget...',
+    updates_querying: 'Querying winget…',
     updates_empty_title: 'Everything is up to date',
     updates_empty_sub: 'No updates available',
     col_current: 'Current',
     col_available: 'Available',
     btn_update: 'Update',
-    btn_updating: 'Updating...',
+    btn_updating: 'Updating…',
     btn_ignore: 'Ignore',
+    btn_ignore_named: (n) => `Ignore ${n}`,
+    select_app: (n) => `Select ${n} for update`,
 
     // Installed section
     installed_title: 'Installed applications',
-    installed_loading: 'Loading...',
-    installed_count: (n) => `<span class="text-primary font-semibold">${n}</span> installed applications.`,
-    installed_filter: 'Filter...',
+    installed_loading: 'Loading…',
+    installed_count: (n) => `<span class="text-primary font-semibold">${formatNumber(n)}</span> ${plural(n, 'installed application', 'installed applications')}.`,
+    installed_filter: 'Filter…',
     installed_empty: 'No applications found',
     col_version: 'Version',
     btn_repair: 'Repair',
-    btn_repairing: 'Repairing...',
+    btn_repairing: 'Repairing…',
     btn_uninstall: 'Uninstall',
-    btn_uninstalling: 'Uninstalling...',
+    btn_uninstalling: 'Uninstalling…',
 
     // Search section
     search_title: 'Search applications',
     search_sub: 'Search and install any application available in winget.',
-    search_placeholder: 'e.g. vlc, notepad++, firefox...',
+    search_placeholder: 'e.g. vlc, notepad++, firefox…',
     search_btn: 'Search',
-    search_loading: 'Searching...',
+    search_loading: 'Searching…',
     search_empty: 'No results found',
     btn_install: 'Install',
-    btn_installing: 'Installing...',
+    btn_installing: 'Installing…',
     btn_installed: 'Installed',
 
     // Ignored section
@@ -73,8 +107,9 @@ const TRANSLATIONS = {
     info_backend_sub: 'Tauri v2 + winget',
     info_platform: 'Platform',
     info_platform_sub: 'Requires winget installed',
+    info_winget_version: (v) => `winget ${v} detected`,
     info_about_title: 'About',
-    info_about_text: 'SuperUpdater is a desktop application for Windows that allows you to manage and update installed software using <span class="font-semibold text-primary">winget</span>, Microsoft\'s official package manager. Built with <span class="font-semibold">Tauri v2</span> and <span class="font-semibold">Rust</span> for maximum efficiency.',
+    info_about_text: 'SuperUpdater is a desktop application for Windows that allows you to manage and update installed software using <span class="font-semibold text-primary">winget</span>, Microsoft’s official package manager. Built with <span class="font-semibold">Tauri v2</span> and <span class="font-semibold">Rust</span> for maximum efficiency.',
     info_language: 'Language',
 
     // Progress bar
@@ -88,27 +123,28 @@ const TRANSLATIONS = {
     winget_title: 'winget not found',
     winget_sub: 'The Windows package manager is not installed. SuperUpdater can install it automatically.',
     winget_btn: 'Install winget',
-    winget_downloading: 'Downloading winget, this may take a few minutes...',
+    winget_installing_short: 'Installing…',
+    winget_downloading: 'Downloading winget, this may take a few minutes…',
     winget_done: '✓ winget installed. Restart the application to continue.',
     winget_retry: 'Retry',
 
     // Toasts
-    toast_loading_error: 'Error loading updates: ',
-    toast_updating: (n) => `Updating ${n}...`,
+    toast_loading_error: 'Could not load updates: ',
+    toast_updating: (n) => `Updating ${n}…`,
     toast_updated: (n) => `✓ ${n} updated successfully`,
     toast_error: (m) => `Error: ${m}`,
     toast_ignored: (n) => `${n} added to ignored`,
     toast_restored: (n) => `${n} restored`,
     toast_history_cleared: 'History cleared',
-    toast_installing: (n) => `Installing ${n}...`,
+    toast_installing: (n) => `Installing ${n}…`,
     toast_installed: (n) => `✓ ${n} installed successfully`,
-    toast_uninstalling: (n) => `Uninstalling ${n}...`,
+    toast_uninstalling: (n) => `Uninstalling ${n}…`,
     toast_uninstalled: (n) => `✓ ${n} uninstalled successfully`,
-    toast_repairing: (n) => `Repairing ${n}...`,
+    toast_repairing: (n) => `Repairing ${n}…`,
     toast_repaired: (n) => `✓ ${n} repaired successfully`,
     toast_no_selected: 'No apps selected',
     toast_search_error: 'Search error: ',
-    toast_installed_error: 'Error loading applications: ',
+    toast_installed_error: 'Could not load applications: ',
   },
 
   es: {
@@ -120,40 +156,42 @@ const TRANSLATIONS = {
     nav_info: 'Configuración',
 
     updates_title: 'Inventario de software',
-    updates_loading: 'Buscando actualizaciones...',
+    updates_loading: 'Buscando actualizaciones…',
     updates_all_good: 'Todo el software está al día.',
-    updates_pending: (n) => `<span class="text-primary font-semibold">${n} actualización${n > 1 ? 'es' : ''}</span> pendiente${n > 1 ? 's' : ''} de aprobación.`,
-    updates_filter: 'Filtrar...',
+    updates_pending: (n) => `<span class="text-primary font-semibold">${formatNumber(n)} ${plural(n, 'actualización', 'actualizaciones')}</span> ${plural(n, 'pendiente', 'pendientes')} de aprobación.`,
+    updates_filter: 'Filtrar…',
     updates_select_all: 'Seleccionar todo',
     updates_selected_btn: 'Actualizar seleccionados',
-    updates_querying: 'Consultando winget...',
+    updates_querying: 'Consultando winget…',
     updates_empty_title: 'Todo está actualizado',
     updates_empty_sub: 'No se encontraron actualizaciones disponibles',
     col_current: 'Actual',
     col_available: 'Disponible',
     btn_update: 'Actualizar',
-    btn_updating: 'Actualizando...',
+    btn_updating: 'Actualizando…',
     btn_ignore: 'Ignorar',
+    btn_ignore_named: (n) => `Ignorar ${n}`,
+    select_app: (n) => `Seleccionar ${n} para actualizar`,
 
     installed_title: 'Aplicaciones instaladas',
-    installed_loading: 'Cargando...',
-    installed_count: (n) => `<span class="text-primary font-semibold">${n}</span> aplicaciones instaladas.`,
-    installed_filter: 'Filtrar...',
+    installed_loading: 'Cargando…',
+    installed_count: (n) => `<span class="text-primary font-semibold">${formatNumber(n)}</span> ${plural(n, 'aplicación instalada', 'aplicaciones instaladas')}.`,
+    installed_filter: 'Filtrar…',
     installed_empty: 'No se encontraron aplicaciones',
     col_version: 'Versión',
     btn_repair: 'Reparar',
-    btn_repairing: 'Reparando...',
+    btn_repairing: 'Reparando…',
     btn_uninstall: 'Desinstalar',
-    btn_uninstalling: 'Desinstalando...',
+    btn_uninstalling: 'Desinstalando…',
 
     search_title: 'Buscar aplicaciones',
     search_sub: 'Busca e instala cualquier aplicación disponible en winget.',
-    search_placeholder: 'ej. vlc, notepad++, firefox...',
+    search_placeholder: 'ej. vlc, notepad++, firefox…',
     search_btn: 'Buscar',
-    search_loading: 'Buscando...',
+    search_loading: 'Buscando…',
     search_empty: 'No se encontraron resultados',
     btn_install: 'Instalar',
-    btn_installing: 'Instalando...',
+    btn_installing: 'Instalando…',
     btn_installed: 'Instalado',
 
     ignored_title: 'Apps ignoradas',
@@ -176,6 +214,7 @@ const TRANSLATIONS = {
     info_backend_sub: 'Tauri v2 + winget',
     info_platform: 'Plataforma',
     info_platform_sub: 'Requiere winget instalado',
+    info_winget_version: (v) => `winget ${v} detectado`,
     info_about_title: 'Acerca de',
     info_about_text: 'SuperUpdater es una aplicación de escritorio para Windows que permite gestionar y actualizar el software instalado usando <span class="font-semibold text-primary">winget</span>, el gestor de paquetes oficial de Microsoft. Desarrollada con <span class="font-semibold">Tauri v2</span> y <span class="font-semibold">Rust</span> para máxima eficiencia.',
     info_language: 'Idioma',
@@ -190,39 +229,47 @@ const TRANSLATIONS = {
     winget_title: 'winget no encontrado',
     winget_sub: 'El gestor de paquetes de Windows no está instalado. SuperUpdater puede instalarlo automáticamente.',
     winget_btn: 'Instalar winget',
-    winget_downloading: 'Descargando winget, esto puede tardar unos minutos...',
+    winget_installing_short: 'Instalando…',
+    winget_downloading: 'Descargando winget, esto puede tardar unos minutos…',
     winget_done: '✓ winget instalado. Reinicia la aplicación para continuar.',
     winget_retry: 'Reintentar',
 
-    toast_loading_error: 'Error al obtener actualizaciones: ',
-    toast_updating: (n) => `Actualizando ${n}...`,
+    toast_loading_error: 'No se pudieron obtener las actualizaciones: ',
+    toast_updating: (n) => `Actualizando ${n}…`,
     toast_updated: (n) => `✓ ${n} actualizado correctamente`,
     toast_error: (m) => `Error: ${m}`,
     toast_ignored: (n) => `${n} agregado a ignorados`,
     toast_restored: (n) => `${n} restaurado`,
     toast_history_cleared: 'Historial limpiado',
-    toast_installing: (n) => `Instalando ${n}...`,
+    toast_installing: (n) => `Instalando ${n}…`,
     toast_installed: (n) => `✓ ${n} instalado correctamente`,
-    toast_uninstalling: (n) => `Desinstalando ${n}...`,
+    toast_uninstalling: (n) => `Desinstalando ${n}…`,
     toast_uninstalled: (n) => `✓ ${n} desinstalado correctamente`,
-    toast_repairing: (n) => `Reparando ${n}...`,
+    toast_repairing: (n) => `Reparando ${n}…`,
     toast_repaired: (n) => `✓ ${n} reparado correctamente`,
     toast_no_selected: 'No hay apps seleccionadas',
     toast_search_error: 'Error en la búsqueda: ',
-    toast_installed_error: 'Error al cargar aplicaciones: ',
+    toast_installed_error: 'No se pudieron cargar las aplicaciones: ',
   }
 };
 
 function t(key, param) {
-  const value = TRANSLATIONS[currentLang][key];
-  return typeof value === 'function' ? value(param) : value || key;
+  const table = TRANSLATIONS[currentLang] || TRANSLATIONS.es;
+  const value = table[key];
+  if (value === undefined) return key;
+  return typeof value === 'function' ? value(param) : value;
 }
 
 function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) return;
   currentLang = lang;
-  localStorage.setItem('lang', lang);
+  try {
+    localStorage.setItem('lang', lang);
+  } catch {
+    /* el almacenamiento puede estar bloqueado; no es crítico */
+  }
 }
 
 function getCurrentLanguage() {
-  return currentLang;
+  return TRANSLATIONS[currentLang] ? currentLang : 'es';
 }

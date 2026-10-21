@@ -1,0 +1,9 @@
+Nombre                     Id                         Versión                 Coincidencia Origen
+--------------------------------------------------------------------------------------------------
+VLC                        XPDM1ZW6815MQM             Unknown                              msstore
+VLC media player           VideoLAN.VLC               3.0.24                  Moniker: vlc winget
+pympress                   Cimbali.pympress           1.8.6                   Tag: vlc     winget
+Jellyfin VLC Bridge        CrySer66.JellyfinVlcBridge 1.18.0                  Tag: vlc     winget
+Screenbox                  Starpine.Screenbox         0.23.0                  Tag: vlc     winget
+Streamlink                 Streamlink.Streamlink      8.6.2-1                 Tag: vlc     winget
+wcap                       mmozeiko.wcap              2025.11.27              Tag: vlc     winget

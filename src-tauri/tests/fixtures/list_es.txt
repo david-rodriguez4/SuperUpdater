@@ -1,0 +1,5 @@
+Nombre                                                       Id                                                                                Versión             Disponible    Origen
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7-Zip 26.04 (x64)                                            7zip.7zip                                                                         26.04                             winget
+Xbox Game Speech Window                                      MSIX\Microsoft.XboxSpeechToTextOverlay_1.21.13002.0_x64__8wekyb3d8bbwe            1.21.13002.0                      
+XML Studio                                                   ARP\User\X64\XML Studio                                                           1.0.0                             

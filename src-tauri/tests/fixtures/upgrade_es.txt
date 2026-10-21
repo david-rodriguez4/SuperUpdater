@@ -1,0 +1,7 @@
+Nombre                                                 Id                                     Versión       Disponible    Origen
+--------------------------------------------------------------------------------------------------------------------------------
+Claude                                                 Anthropic.Claude                       1.15200.0.0   2.42304.2     winget
+EA app                                                 ElectronicArts.EADesktop               13.796.0.6309 13.809.0.6322 winget
+Git                                                    Git.Git                                2.55.0.3      2.55.0.5      winget
+Microsoft ASP.NET Core 8.0.31 - Shared Framework (x64) Microsoft.DotNet.AspNetCore.8          8.0.31        8.0.32        winget
+18 actualizaciones disponibles.

@@ -1,0 +1,6 @@
+Name                                                   Id                                     Version        Available      Source
+--------------------------------------------------------------------------------------------------------------------------------
+7-Zip 26.04 (x64)                                      7zip.7zip                              26.04          26.05          winget
+Claude                                                 Anthropic.Claude                       1.15200.0.0    2.42304.2      winget
+Microsoft ASP.NET Core 8.0.31 - Shared Framework (x64) Microsoft.DotNet.AspNetCore.8          8.0.31         8.0.32         winget
+3 upgrades are available.

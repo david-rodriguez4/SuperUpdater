@@ -10,3 +10,9 @@ src-tauri/gen/
 # Temp files
 logo_square.png
 *.log
+
+# Build artifacts
+/dist/
+
+# Freebuff workspace metadata
+/.freebuff/
